@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AltHack Security — Gerçek Dünya Siber Güvenlik İstihbaratı</title>
+  <meta name="description" content="CVE analizi, breach vaka incelemeleri, siber güvenlik ürünleri, cloud güvenlik ve bug bounty writeup'ları.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://althacksec.github.io/">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://althacksec.github.io/">
+  <meta property="og:title" content="AltHack Security — Gerçek Dünya Siber Güvenlik İstihbaratı">
+  <meta property="og:image" content="https://raw.githubusercontent.com/althacksec/althacksec.github.io/main/profile.jpg">
+  <link rel="icon" type="image/jpeg" href="https://raw.githubusercontent.com/althacksec/althacksec.github.io/main/profile.jpg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* Hero — index only */
+    .hero{position:relative;z-index:1;min-height:100vh;display:grid;grid-template-columns:1fr 420px;align-items:center;gap:60px;max-width:1300px;margin:0 auto;padding:120px 52px 80px}
+    .hero-eyebrow{display:inline-flex;align-items:center;gap:12px;font-family:var(--mono);font-size:.64rem;color:var(--cyan);letter-spacing:.16em;text-transform:uppercase;margin-bottom:28px;opacity:0;animation:fadeUp .6s ease .1s forwards}
+    .hero-eyebrow::before{content:'';width:32px;height:1px;background:var(--cyan)}
+    .hero-eyebrow::after{content:'';width:8px;height:8px;border:1px solid var(--cyan);transform:rotate(45deg);animation:spin 4s linear infinite}
+    .hero-h1{font-family:var(--display);font-size:clamp(5rem,12vw,10rem);line-height:.88;letter-spacing:.04em;margin-bottom:28px;opacity:0;animation:fadeUp .6s ease .2s forwards}
+    .hero-h1 .line1{color:var(--text);display:block}
+    .hero-h1 .line2{display:block;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+    .hero-h1 .line3{color:transparent;-webkit-text-stroke:2px var(--dim);display:block}
+    .hero-sub{font-family:var(--mono);font-size:.72rem;color:var(--cyan);letter-spacing:.1em;text-transform:uppercase;margin-bottom:20px;opacity:0;animation:fadeUp .6s ease .25s forwards}
+    .hero-desc{font-size:.975rem;color:var(--muted);max-width:500px;line-height:1.9;margin-bottom:48px;opacity:0;animation:fadeUp .6s ease .3s forwards}
+    .hero-actions{display:flex;gap:14px;flex-wrap:wrap;opacity:0;animation:fadeUp .6s ease .4s forwards}
+    .btn-p{font-family:var(--mono);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;color:#050810;background:var(--grad);padding:14px 28px;display:inline-block;transition:opacity .2s;font-weight:700}
+    .btn-p:hover{opacity:.85}
+    .btn-g{font-family:var(--mono);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;color:var(--muted);background:transparent;padding:14px 28px;border:1px solid var(--bdim);display:inline-block;transition:all .2s}
+    .btn-g:hover{border-color:var(--cyan);color:var(--cyan)}
+    .hero-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:48px;opacity:0;animation:fadeUp .6s ease .5s forwards}
+    .hs{background:var(--bg2);border:1px solid var(--bdim);padding:16px 18px}
+    .hs-num{font-family:var(--display);font-size:2rem;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1}
+    .hs-lbl{font-family:var(--mono);font-size:.58rem;color:var(--text);letter-spacing:.1em;text-transform:uppercase;margin-top:4px}
+    /* Terminal */
+    .terminal{background:var(--bg2);border:1px solid var(--border);box-shadow:0 0 60px rgba(0,212,255,.08),inset 0 0 40px rgba(0,0,0,.3);font-family:var(--mono);font-size:.74rem;opacity:0;animation:fadeUp .7s ease .5s forwards;position:relative}
+    .terminal::before{content:'';position:absolute;top:-1px;left:0;right:0;height:2px;background:var(--grad)}
+    .tbar{background:var(--bg3);padding:12px 18px;display:flex;align-items:center;gap:8px;border-bottom:1px solid var(--bdim)}
+    .dot{width:10px;height:10px;border-radius:50%}
+    .dr{background:#ff5f57}.dy{background:#ffbd2e}.dg{background:#28ca41}
+    .ttl{margin-left:8px;font-size:.6rem;color:var(--muted);letter-spacing:.06em}
+    .tbody{padding:24px 20px;line-height:2.1}
+    .tl{display:flex;gap:10px}
+    .tp{color:var(--cyan)}.tc{color:var(--text)}.ty{color:var(--orange)}.tg{color:var(--green)}.tr2{color:var(--red)}
+    .cur{display:inline-block;width:8px;height:14px;background:var(--cyan);vertical-align:middle;animation:blink 1.1s step-end infinite}
+    @media(max-width:1100px){.hero{grid-template-columns:1fr}.terminal{display:none}}
+    @media(max-width:768px){.hero{padding:100px 20px 60px}}
+  </style>
+</head>
+<body>
+<div class="glow" id="glowOrb"></div>
+<div class="glow2"></div>
+<div class="glow3"></div>
+
+<!-- NAV -->
+<nav id="mainNav">
+  <a href="index.html" class="nav-logo"><span class="alt">ALT</span>HACK<span class="sec">&nbsp;SECURITY</span></a>
+  <ul class="nav-links">
+    <li class="nd" id="dCat">
+      <button class="nd-btn" onclick="toggleDD('dCat')">Kategoriler <span class="chev"></span></button>
+      <div class="dm">
+        <a href="cve.html" class="di"><div class="di-tag">CVE Arşivi</div><div class="di-title">CVE Spotlight</div><div class="di-desc">Kritik güvenlik açıklarının haftalık teknik analizi</div></a>
+        <a href="breach.html" class="di"><div class="di-tag">Vaka Analizleri</div><div class="di-title">Breach Breakdown</div><div class="di-desc">Gerçek saldırı vakalarının anatomisi</div></a>
+        <a href="products.html" class="di"><div class="di-tag">Siber Güvenlik Ürünleri</div><div class="di-title">Security Products</div><div class="di-desc">Wazuh, SentinelOne ve diğer güvenlik ürünleri</div></a>
+        <a href="vitrin.html" class="di"><div class="di-tag">Sponsorlu / Proje Vitrini</div><div class="di-title">Vitrin</div><div class="di-desc">Araç ve proje tanıtımları için iletişim kanalı</div></a>
+        <a href="cloud.html" class="di"><div class="di-tag">Cloud Security</div><div class="di-title">Cloud Attack Surface</div><div class="di-desc">AWS, Azure, GCP misconfiguration ve exploitation</div></a>
+        <a href="bugbounty.html" class="di"><div class="di-tag">Bug Bounty</div><div class="di-title">Bug Bounty Debrief</div><div class="di-desc">Gerçek writeup'lar ve hunter metodolojisi</div></a>
+      </div>
+    </li>
+    <li><a href="about.html">Hakkında</a></li>
+    <li><a href="#latest">Son Yazılar</a></li>
+    <li><a href="#platforms">Platformlar</a></li>
+  </ul>
+  <div class="nav-right">
+    <a href="https://linkedin.com/company/althack" target="_blank" rel="noopener noreferrer" class="nav-cta">LinkedIn →</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div>
+    <div class="hero-eyebrow">Gerçek Dünya Siber Güvenlik İstihbaratı</div>
+    <h1 class="hero-h1">
+      <span class="line1">ALT</span>
+      <span class="line2">HACK</span>
+      <span class="line3">SECURITY<span class="cur" style="margin-left:8px;"></span></span>
+    </h1>
+    <div class="hero-sub">// Operasyonel İstihbarat. Teknik Derinlik. Gerçek Vakalar.</div>
+    <p class="hero-desc">CVE analizi, breach vaka incelemeleri, siber güvenlik ürün değerlendirmeleri, cloud güvenlik ve bug bounty writeup'ları. Orta-üst seviye güvenlik profesyonelleri için.</p>
+    <div class="hero-actions">
+      <a href="#latest" class="btn-p">Son Analizler</a>
+      <a href="https://medium.com/@althacksec" target="_blank" rel="noopener noreferrer" class="btn-g">Medium'da Oku →</a>
+    </div>
+    <div class="hero-stats">
+      <div class="hs"><div class="hs-num">6</div><div class="hs-lbl">Kategori</div></div>
+      <div class="hs"><div class="hs-num">3</div><div class="hs-lbl">Platform</div></div>
+      <div class="hs"><div class="hs-num">∞</div><div class="hs-lbl">Ücretsiz</div></div>
+    </div>
+  </div>
+  <div class="terminal" aria-hidden="true">
+    <div class="tbar">
+      <div class="dot dr"></div><div class="dot dy"></div><div class="dot dg"></div>
+      <span class="ttl">althack-security — threat-intel</span>
+    </div>
+    <div class="tbody">
+      <div id="cve-output">
+        <div class="tl"><span class="tp">$</span><span class="tc">&nbsp;althack --scan live --feed nvd</span></div>
+        <div style="height:8px"></div>
+        <div class="tl"><span class="ty">[ TARAMA ]</span><span class="tc">&nbsp;NVD feed başlatılıyor...</span></div>
+      </div>
+      <div style="height:10px"></div>
+      <div class="tl"><span class="tp">$</span><span class="tc">&nbsp;althack --feed breach --status</span></div>
+      <div style="height:8px"></div>
+      <div class="tl"><span class="ty">[ BEKLENİYOR ]</span><span class="tc">&nbsp;BEKLENİYOR...</span></div>
+      <div class="tl"><span class="ty">[ HAZIRLANDI ]</span><span class="tc">&nbsp;Snowflake; 165 Şirket, Tek Yöntem. </span></div>
+      <div class="tl"><span class="ty">[ HAZIRLANDI ]</span><span class="tc">&nbsp;TeamPCP Tedarik Zinciri İhlali</span></div>
+      <div style="height:8px"></div>
+      <div class="tl"><span class="tp">$</span><span class="tc">&nbsp;<span class="cur"></span></span></div>
+    </div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker-w" aria-hidden="true">
+  <div class="ticker">
+    <span class="ti"><span>CVE</span>&nbsp;Haftalık Analiz</span>
+    <span class="ti red"><span>KRİTİK</span>&nbsp;Zafiyet</span>
+    <span class="ti"><span>Breach</span>&nbsp;Breakdown</span>
+    <span class="ti"><span>Siber Güvenlik</span>&nbsp;Ürünleri</span>
+    <span class="ti grn"><span>Bug Bounty</span>&nbsp;Debrief</span>
+    <span class="ti"><span>MITRE</span>&nbsp;ATT&CK Mapping</span>
+    <span class="ti"><span>Cloud</span>&nbsp;Saldırı Yüzeyi</span>
+    <span class="ti"><span>Proje</span>&nbsp;Vitrin</span>
+    <span class="ti"><span>Threat</span>&nbsp;Intel</span>
+    <span class="ti"><span>CVE</span>&nbsp;Haftalık Analiz</span>
+    <span class="ti red"><span>KRİTİK</span>&nbsp;Zafiyet</span>
+    <span class="ti"><span>Breach</span>&nbsp;Breakdown</span>
+    <span class="ti"><span>Siber Güvenlik</span>&nbsp;Ürünleri</span>
+    <span class="ti grn"><span>Bug Bounty</span>&nbsp;Debrief</span>
+    <span class="ti"><span>MITRE</span>&nbsp;ATT&CK Mapping</span>
+    <span class="ti"><span>Cloud</span>&nbsp;Saldırı Yüzeyi</span>
+    <span class="ti"><span>Proje</span>&nbsp;Vitrin</span>
+    <span class="ti"><span>Threat</span>&nbsp;Intel</span>
+  </div>
+</div>
+
+<!-- CATEGORIES -->
+<div class="sw" id="categories">
+  <div class="sh"><span class="sn">01</span><h2 class="st">Kategoriler</h2><div class="sr"></div></div>
+  <div class="cg">
+    <a href="cve.html" class="cc rv"><div class="cl">CVE Arşivi</div><div class="cn">CVE Spotlight</div><p class="cd">Kritik güvenlik açıklarının haftalık teknik analizi. PoC incelemesi, CVSS skorlaması ve MITRE ATT&CK eşlemeli patch stratejileri.</p><span class="ca">→</span></a>
+    <a href="breach.html" class="cc rv"><div class="cl">Vaka Analizleri</div><div class="cn">Breach Breakdown</div><p class="cd">Gerçek saldırıların anatomisi. Initial access'ten exfiltration'a saldırı zinciri, tespit başarısızlıkları ve savunma dersleri.</p><span class="ca">→</span></a>
+    <a href="products.html" class="cc rv"><div class="cl">Siber Güvenlik Ürünleri</div><div class="cn">Security Products</div><p class="cd">Wazuh, SentinelOne ve benzeri güvenlik ürünlerinin teknik değerlendirmesi, artıları ve eksileri baştan sona inceleme.</p><span class="ca">→</span></a>
+    <a href="vitrin.html" class="cc rv"><div class="cl">Sponsorlu / Proje Vitrini</div><div class="cn">Vitrin</div><p class="cd">Güvenlik aracını veya projenin burada yer almasını istiyorsan iletişime geç. Toplulukla paylaşmak istediğin her şey için bir alan.</p><span class="ca">→</span></a>
+    <a href="cloud.html" class="cc rv"><div class="cl">Cloud Security</div><div class="cn">Cloud Attack Surface</div><p class="cd">AWS, Azure ve GCP üzerindeki misconfiguration zafiyetleri, IAM exploitation zincirleri ve cloud-native saldırı vektörleri.</p><span class="ca">→</span></a>
+    <a href="bugbounty.html" class="cc rv"><div class="cl">Bug Bounty</div><div class="cn">Bug Bounty Debrief</div><p class="cd">Gerçek program writeup'ları, recon metodolojileri, business logic zafiyet analizleri ve hunter perspektifinden disclosure süreci.</p><span class="ca">→</span></a>
+  </div>
+</div>
+
+<div class="dv"><hr></div>
+
+<!-- LATEST POSTS -->
+<div class="sw" id="latest">
+  <div class="sh"><span class="sn">02</span><h2 class="st">Son Yazılar</h2><div class="sr"></div></div>
+  <div class="pg">
+
+    <a href="https://github.com/althacksec/CVE_Spotlight/blob/main/CVE-2026-5532.md" target="_blank" rel="noopener noreferrer" class="pr rv">
+      <span class="pa">2026</span><span class="pb orange">CVE · 6.3</span>
+      <div class="pt">CVE-2026-5532 — ScrapeGraphAI OS Command Injection (GenerateCodeNode)<small>Yapay zeka destekli web scraping kütüphanesi ScrapeGraphAI'ın GenerateCodeNode bileşenindeki bir OS Command Injection güvenlik açığıdır.</small></div>
+      <span class="pa">→</span>
+    </a>
+    <a href="https://github.com/althacksec/Security_Products/blob/main/CyCognito.md" target="_blank" rel="noopener noreferrer" class="pr rv">
+      <span class="pa">2017</span><span class="pb red">CNAPP</span>
+      <div class="pt">CyCognito<small>Kurumların saldırgan perspektifinden dış saldırı yüzeyini sürekli izleyen ve test eden bir External Attack Surface Management (EASM) platformudur.</small></div>
+      <span class="pa">→</span>
+    </a>
+    <a href="https://github.com/althacksec/Cloud_Attack_Surface/blob/main/Entra_id_Actor_Token_cross_Tenant_Global_Admin.md" target="_blank" rel="noopener noreferrer" class="pr rv">
+      <span class="pa">2026</span><span class="pb --cyan">Kubernetes</span>
+      <div class="pt">Entra ID Actor Token Validation Bug — Cross-Tenant Global Admin<small>Profesyonel hunter'lar için field-tested ve kategorize edilmiş tarayıcı eklentileri.</small></div>
+      <span class="pa">→</span>
+    </a>
+    <a href="https://althacksec.medium.com/snowflake-kampanyas%C4%B1-165-%C5%9Firket-tek-y%C3%B6ntem-bulut-veri-ambar%C4%B1-i%CC%87hlali-analizi-01198be39fca"  target="_blank" rel="noopener noreferrer" class="pr rv">
+      <span class="pa">2025</span><span class="pb red">Breach</span>
+      <div class="pt">Snowflake Kampanyası: 165 Şirket, Tek Yöntem — Bulut Veri Ambarı İhlali Analizi<small>Modern bir siber saldırı anatomisi: Karmaşık exploit’ler değil, çalınan kimlik bilgileriyle gelen dijital yıkım.</small></div>
+      <span class="pa">→</span>
+    </a>
+    <a href="https://github.com/althacksec/BugBounty_Tools"  target="_blank" rel="noopener noreferrer" class="pr rv">
+      <span class="pa">2025</span><span class="pb green">Tool</span>
+      <div class="pt">BugBounty Toolset<small>Profesyonel güvenlik araştırması için test edilmiş araçlar.</small></div>
+      <span class="pa">→</span>
+    </a>
+  </div>
+</div>
+
+<div class="dv"><hr></div>
+
+<!-- PLATFORMS -->
+<div class="sw" id="platforms">
+  <div class="sh"><span class="sn">03</span><h2 class="st">Platformlar</h2><div class="sr"></div></div>
+  <div class="plr">
+    <a href="https://linkedin.com/company/althack" target="_blank" rel="noopener noreferrer" class="plc rv">
+      <span class="pi">in</span><div class="pn">LinkedIn</div>
+      <p class="plde">Haftalık CVE duyuruları, breach özetleri ve tehdit istihbaratı paylaşımları. Tüm içeriklerin birincil dağıtım kanalı.</p>
+      <span class="pll">Takip Et →</span>
+    </a>
+    <a href="https://medium.com/@althacksec" target="_blank" rel="noopener noreferrer" class="plc rv">
+      <span class="pi">M</span><div class="pn">Medium</div>
+      <p class="plde">Tam teknik analizler, derinlemesine writeup'lar ve vaka incelemeleri. Haftada en az bir yeni makale.</p>
+      <span class="pll">Oku →</span>
+    </a>
+    <a href="https://github.com/althacksec" target="_blank" rel="noopener noreferrer" class="plc rv">
+      <span class="pi">&lt;/&gt;</span><div class="pn">GitHub</div>
+      <p class="plde">CVE arşivi, araç listesi, tarayıcı eklenti kataloğu ve AltHack Security aylık raporları.</p>
+      <span class="pll">İncele →</span>
+    </a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="fi">
+    <div class="fm">
+      <div>
+        <a href="index.html" class="flogo"><span class="alt">ALT</span>HACK <span class="sec">SECURITY</span></a>
+        <div class="ftag">Gerçek Dünya Siber Güvenlik İstihbaratı</div>
+        <p class="fdesc">Gerçek dünya siber güvenlik analizleri. MITRE ATT&CK entegrasyonu ile operasyonel istihbarat. Orta-üst seviye profesyoneller için.</p>
+        <div class="fsl">
+          <a href="https://linkedin.com/company/althack" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+          <a href="https://medium.com/@althacksec" target="_blank" rel="noopener noreferrer">Medium</a>
+          <a href="https://github.com/althacksec" target="_blank" rel="noopener noreferrer">GitHub</a>
+        </div>
+      </div>
+      <div class="fcols">
+        <div class="fc">
+          <div class="fct">Kategoriler</div>
+          <ul>
+            <li><a href="cve.html">CVE Spotlight</a></li>
+            <li><a href="breach.html">Breach Breakdown</a></li>
+            <li><a href="products.html">Security Products</a></li>
+            <li><a href="vitrin.html">Vitrin</a></li>
+            <li><a href="cloud.html">Cloud Attack Surface</a></li>
+            <li><a href="bugbounty.html">Bug Bounty Debrief</a></li>
+          </ul>
+        </div>
+        <div class="fc">
+          <div class="fct">Hakkında</div>
+          <ul>
+            <li><a href="about.html">AltHack Security Nedir?</a></li>
+            <li><a href="#platforms">Platformlar</a></li>
+          </ul>
+        </div>
+        <div class="fc">
+          <div class="fct">İletişim</div>
+          <ul>
+            <li><a href="mailto:althacksecurity@gmail.com">althacksecurity@gmail.com</a></li>
+            <li><a href="https://github.com/althacksec" target="_blank" rel="noopener noreferrer">GitHub Issues</a></li>
+            <li><a href="https://linkedin.com/company/althack" target="_blank" rel="noopener noreferrer">LinkedIn Mesaj</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="fb">
+      <span class="fcopy">© 2025 AltHack Security — Tüm hakları saklıdır.</span>
+      <div class="flegal"><a href="mailto:althacksecurity@gmail.com">İletişim</a></div>
+    </div>
+  </div>
+</footer>
+
+<script src="script/script.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const cveOutput = document.getElementById("cve-output");
+  async function fetchRealCVEs() {
+    try {
+      cveOutput.innerHTML = `<div class="tl"><span class="tp">$</span><span class="tc">&nbsp;althack --scan live --feed cve</span></div><div style="height:8px"></div><div class="tl"><span class="ty">[ TARAMA ]</span><span class="tc">&nbsp;NVD feed analiz ediliyor...</span></div>`;
+      const endDate = new Date();
+      const startDate = new Date();
+      startDate.setDate(endDate.getDate() - 7);
+      const startStr = startDate.toISOString().replace('Z', '%2B00:00');
+      const endStr = endDate.toISOString().replace('Z', '%2B00:00');
+      const url = `https://services.nvd.nist.gov/rest/json/cves/2.0?pubStartDate=${startStr}&pubEndDate=${endStr}`;
+      const response = await fetch(url);
+      if (!response.ok) throw new Error("API error");
+      const data = await response.json();
+      let vulnerabilities = data.vulnerabilities;
+      vulnerabilities.sort((a, b) => new Date(b.cve.published) - new Date(a.cve.published));
+      const latestTwo = vulnerabilities.slice(0, 2);
+      let resultHTML = `<div class="tl"><span class="tp">$</span><span class="tc">&nbsp;althack --scan live --feed cve</span></div><div style="height:8px"></div><div class="tl"><span class="ty">[ TARAMA ]</span><span class="tc">&nbsp;NVD feed analiz edildi.</span></div>`;
+      if (latestTwo.length === 0) resultHTML += `<div class="tl"><span class="ty">[ BİLGİ ]</span><span class="tc">&nbsp;Son 7 günde kritik zafiyet bulunamadı.</span></div>`;
+      latestTwo.forEach(item => {
+        const cveId = item.cve.id;
+        let cvssScore = "N/A", severity = "BİLİNMİYOR", colorClass = "ty";
+        const metrics = item.cve.metrics;
+        if (metrics?.cvssMetricV31?.[0]) { cvssScore = metrics.cvssMetricV31[0].cvssData.baseScore; severity = metrics.cvssMetricV31[0].cvssData.baseSeverity; }
+        else if (metrics?.cvssMetricV30?.[0]) { cvssScore = metrics.cvssMetricV30[0].cvssData.baseScore; severity = metrics.cvssMetricV30[0].cvssData.baseSeverity; }
+        let trSeverity = "BİLGİ";
+        if (severity === "CRITICAL") { trSeverity = "KRİTİK"; colorClass = "tg"; }
+        else if (severity === "HIGH") { trSeverity = "YÜKSEK"; colorClass = "tg"; }
+        else if (severity === "MEDIUM") { trSeverity = "ORTA"; colorClass = "ty"; }
+        else if (severity === "LOW") { trSeverity = "DÜŞÜK"; colorClass = "ty"; }
+        resultHTML += `<div class="tl"><span class="${colorClass}">[ BULUNDU ]</span><span class="tc">&nbsp;${cveId} — ${trSeverity} ${cvssScore}</span></div>`;
+      });
+      resultHTML += `<div class="tl"><span class="tr2">[ UYARI  ]</span><span class="tc">&nbsp;Güncel istismar verileri doğrulandı.</span></div>`;
+      setTimeout(() => { cveOutput.innerHTML = resultHTML; }, 1000);
+    } catch (error) {
+      setTimeout(() => {
+        cveOutput.innerHTML = `<div class="tl"><span class="tp">$</span><span class="tc">&nbsp;althack --scan live --feed cve</span></div><div style="height:8px"></div><div class="tl"><span class="ty">[ TARAMA ]</span><span class="tc">&nbsp;NVD Rate Limit (Offline Mode)...</span></div><div class="tl"><span class="tg">[ BULUNDU ]</span><span class="tc">&nbsp;CVE-2025-0432 — KRİTİK 9.8</span></div><div class="tl"><span class="tg">[ BULUNDU ]</span><span class="tc">&nbsp;CVE-2025-1187 — YÜKSEK 8.1</span></div><div class="tl"><span class="tr2">[ UYARI  ]</span><span class="tc">&nbsp;Canlı API bağlantısı sağlanamadı.</span></div>`;
+      }, 1000);
+    }
+  }
+  fetchRealCVEs();
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cloud Attack Surface — AltHack Security</title>
+  <meta name="description" content="AWS, Azure ve GCP üzerindeki misconfiguration zafiyetleri, IAM exploitation zincirleri ve cloud-native saldırı vektörleri.">
+  <link rel="icon" type="image/jpeg" href="https://raw.githubusercontent.com/althacksec/althacksec.github.io/main/profile.jpg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="glow" id="glowOrb"></div><div class="glow2"></div><div class="glow3"></div>
+
+<nav id="mainNav">
+  <a href="index.html" class="nav-logo"><span class="alt">ALT</span>HACK<span class="sec">&nbsp;SECURITY</span></a>
+  <ul class="nav-links">
+    <li class="nd" id="dCat">
+      <button class="nd-btn" onclick="toggleDD('dCat')">Kategoriler <span class="chev"></span></button>
+      <div class="dm">
+        <a href="cve.html" class="di"><div class="di-tag">CVE Arşivi</div><div class="di-title">CVE Spotlight</div><div class="di-desc">Kritik güvenlik açıklarının haftalık teknik analizi</div></a>
+        <a href="breach.html" class="di"><div class="di-tag">Vaka Analizleri</div><div class="di-title">Breach Breakdown</div><div class="di-desc">Gerçek saldırı vakalarının anatomisi</div></a>
+        <a href="products.html" class="di"><div class="di-tag">Siber Güvenlik Ürünleri</div><div class="di-title">Security Products</div><div class="di-desc">Wazuh, SentinelOne ve diğer güvenlik ürünleri</div></a>
+        <a href="vitrin.html" class="di"><div class="di-tag">Sponsorlu / Proje Vitrini</div><div class="di-title">Vitrin</div><div class="di-desc">Araç ve proje tanıtımları</div></a>
+        <a href="cloud.html" class="di"><div class="di-tag">Cloud Security</div><div class="di-title">Cloud Attack Surface</div><div class="di-desc">AWS, Azure, GCP misconfiguration ve exploitation</div></a>
+        <a href="bugbounty.html" class="di"><div class="di-tag">Bug Bounty</div><div class="di-title">Bug Bounty Debrief</div><div class="di-desc">Gerçek writeup'lar ve hunter metodolojisi</div></a>
+      </div>
+    </li>
+    <li><a href="about.html">Hakkında</a></li>
+    <li><a href="index.html#latest">Son Yazılar</a></li>
+    <li><a href="index.html#platforms">Platformlar</a></li>
+  </ul>
+  <div class="nav-right"><a href="https://linkedin.com/company/althack" target="_blank" rel="noopener noreferrer" class="nav-cta">LinkedIn →</a></div>
+</nav>
+
+<div class="cat-page-hero">
+  <a href="index.html" class="back-btn">Ana Sayfa</a>
+  <div class="cat-badge">Cloud Security</div>
+  <h1 class="cat-page-title">Cloud Attack Surface</h1>
+  <p class="cat-page-desc">AWS, Azure ve GCP üzerindeki misconfiguration zafiyetleri, IAM exploitation zincirleri ve cloud-native saldırı vektörleri. Saldırgan bakış açısıyla cloud güvenliği.</p>
+</div>
+
+<div class="cat-page-content">
+  <div class="search-wrap">
+    <span class="search-icon">⌕</span>
+    <input class="search-input" type="text" placeholder="AWS, Azure, GCP, IAM, misconfiguration ara..." oninput="filterPosts('cloud',this.value)" id="search-cloud">
+    <button class="search-clear" id="clear-cloud" onclick="clearSearch('cloud')">✕</button>
+  </div>
+  <div class="search-count" id="count-cloud"></div>
+  <div class="no-results" id="no-cloud">Arama sonucu bulunamadı.</div>
+
+  <div class="cat-posts rv" id="posts-cloud">
+
+    <div class="cat-post-item" data-search="entra id actor token validation bug cross-tenant global admin microsoft adıyla azure active directory güvenlik açığı">
+      <div class="cpi-meta"><span class="cpi-arrow">2025</span><span class="cpi-badge">Kubernetes</span></div>
+      <div class="cpi-content">
+        <div class="cpi-title">Entra ID Actor Token Validation Bug — Cross-Tenant Global Admin</div>
+        <div class="cpi-sub">Microsoft Entra ID (eski adıyla Azure Active Directory) tarihinde keşfedilmiş en kritik kimlik güvenliği açıklarından biridir.</div>
+        <div class="intel-btns">
+          <a href="https://github.com/althacksec/Cloud_Attack_Surface/blob/main/Entra_id_Actor_Token_cross_Tenant_Global_Admin.md" target="_blank" rel="noopener noreferrer" class="intel-btn github">Github Analizi</a>
+          <a href="https://attack.mitre.org/techniques/T1550/" target="_blank" rel="noopener noreferrer" class="intel-btn mitre">MITRE — T1550</a>
+        </div>
+      </div>
+      <span class="cpi-arrow">→</span>
+    </div>
+
+    <div class="cat-post-item" data-search="gcp imagerunner privilege escalation vulnerability cloud run tenable research platform google">
+      <div class="cpi-meta"><span class="cpi-arrow">2024</span><span class="cpi-badge">GCP</span></div>
+      <div class="cpi-content">
+        <div class="cpi-title">ImageRunner: Privilege Escalation Vulnerability in GCP Cloud Run</div>
+        <div class="cpi-sub">ImageRunner, Google Cloud Platform'un Cloud Run servisinde Tenable Research tarafından keşfedilen privilege escalation güvenlik açığıdır.</div>
+        <div class="intel-btns">
+          <a href="https://github.com/althacksec/Cloud_Attack_Surface/blob/main/Gcp_Imagerunner_Cloud_RUN_Privilege_Escalation.md" target="_blank" rel="noopener noreferrer" class="intel-btn github">Github Analizi</a>
+          <a href="https://attack.mitre.org/techniques/T1548/" target="_blank" rel="noopener noreferrer" class="intel-btn mitre">MITRE — T1548</a>
+        </div>
+      </div>
+      <span class="cpi-arrow">→</span>
+    </div>
+
+  </div>
+</div>
+
+<footer>
+  <div class="fi">
+    <div class="fm">
+      <div>
+        <a href="index.html" class="flogo"><span class="alt">ALT</span>HACK <span class="sec">SECURITY</span></a>
+        <div class="ftag">Gerçek Dünya Siber Güvenlik İstihbaratı</div>
+        <p class="fdesc">Gerçek dünya siber güvenlik analizleri. MITRE ATT&CK entegrasyonu ile operasyonel istihbarat. Orta-üst seviye profesyoneller için.</p>
+        <div class="fsl">
+          <a href="https://linkedin.com/company/althack" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+          <a href="https://medium.com/@althacksec" target="_blank" rel="noopener noreferrer">Medium</a>
+          <a href="https://github.com/althacksec" target="_blank" rel="noopener noreferrer">GitHub</a>
+        </div>
+      </div>
+      <div class="fcols">
+        <div class="fc"><div class="fct">Kategoriler</div><ul><li><a href="cve.html">CVE Spotlight</a></li><li><a href="breach.html">Breach Breakdown</a></li><li><a href="products.html">Security Products</a></li><li><a href="vitrin.html">Vitrin</a></li><li><a href="cloud.html">Cloud Attack Surface</a></li><li><a href="bugbounty.html">Bug Bounty Debrief</a></li></ul></div>
+        <div class="fc"><div class="fct">Hakkında</div><ul><li><a href="about.html">AltHack Security Nedir?</a></li><li><a href="index.html#platforms">Platformlar</a></li></ul></div>
+        <div class="fc"><div class="fct">İletişim</div><ul><li><a href="mailto:althacksecurity@gmail.com">althacksecurity@gmail.com</a></li><li><a href="https://github.com/althacksec" target="_blank" rel="noopener noreferrer">GitHub Issues</a></li><li><a href="https://linkedin.com/company/althack" target="_blank" rel="noopener noreferrer">LinkedIn Mesaj</a></li></ul></div>
+      </div>
+    </div>
+    <div class="fb"><span class="fcopy">© 2025 AltHack Security — Tüm hakları saklıdır.</span><div class="flegal"><a href="mailto:althacksecurity@gmail.com">İletişim</a></div></div>
+  </div>
+</footer>
+<script src="script/script.js"></script>
+</body>
+</html>
