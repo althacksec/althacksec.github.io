@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Model — AltHack Security</title>
+  <meta name="description" content="LLM güvenlik açıkları, prompt injection saldırıları, model manipulation teknikleri ve AI sistemlerine yönelik tehdit analizleri.">
+  <link rel="icon" type="image/jpeg" href="https://raw.githubusercontent.com/althacksec/althacksec.github.io/main/profile.jpg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="glow" id="glowOrb"></div><div class="glow2"></div><div class="glow3"></div>
+
+<nav id="mainNav">
+  <a href="index.html" class="nav-logo notranslate"><span class="alt">ALT</span>HACK<span class="sec">&nbsp;SECURITY</span></a>
+  
+  <ul class="nav-links">
+    <li class="nd" id="dCat">
+      <button class="nd-btn" onclick="toggleDD('dCat')">Kategoriler <span class="chev"></span></button>
+      <div class="dm">
+        <a href="cve.html" class="di"><div class="di-tag">CVE Arşivi</div><div class="di-title">CVE Spotlight</div><div class="di-desc">Kritik güvenlik açıklarının haftalık teknik analizi</div></a>
+        <a href="breach.html" class="di"><div class="di-tag">Vaka Analizleri</div><div class="di-title">Breach Breakdown</div><div class="di-desc">Gerçek saldırı vakalarının anatomisi</div></a>
+        <a href="products.html" class="di"><div class="di-tag">Siber Güvenlik Ürünleri</div><div class="di-title">Security Products</div><div class="di-desc">Wazuh, SentinelOne ve diğer güvenlik ürünleri</div></a>
+        <a href="cti.html" class="di"><div class="di-tag">Cyber Threat Intelligence</div><div class="di-title">CTI</div><div class="di-desc">Tehdit aktörleri, kampanya analizleri ve operasyonel istihbarat</div></a>
+        <a href="cloud.html" class="di"><div class="di-tag">Cloud Security</div><div class="di-title">Cloud Attack Surface</div><div class="di-desc">AWS, Azure, GCP misconfiguration ve exploitation</div></a>
+        <a href="aimodel.html" class="di"><div class="di-tag">AI Güvenliği</div><div class="di-title">AI Model</div><div class="di-desc">LLM güvenlik açıkları, prompt injection ve AI tehdit analizleri</div></a>
+        <a href="malware.html" class="di"><div class="di-tag">Zararlı Yazılım Analizi</div><div class="di-title">Malware Analysis</div><div class="di-desc">Yeni ve mevcut malware'lerin teknik analizi ve çalışma prensipleri</div></a>
+      </div>
+    </li>
+    <li><a href="about.html">Hakkında</a></li>
+    <li><a href="index.html#latest">Son Yazılar</a></li>
+    <li><a href="index.html#platforms">Platformlar</a></li>
+  </ul>
+
+  <div class="nav-right" style="display: flex; gap: 12px; align-items: center;">
+    <div id="google_translate_element" style="display: none;"></div>
+    
+    <select id="langSelector" class="nav-cta notranslate" style="background: transparent; color: var(--cyan); border: 1px solid var(--bdim); cursor: pointer; appearance: none; text-align: center; padding-right: 18px;">
+      <option value="tr" style="color: #000;">TR</option>
+      <option value="en" style="color: #000;">EN</option>
+    </select>
+
+    <a href="https://linkedin.com/company/althack" target="_blank" rel="noopener noreferrer" class="nav-cta">LinkedIn →</a>
+  </div>
+</nav>
+
+<div class="cat-page-hero">
+  <a href="index.html" class="back-btn">Ana Sayfa</a>
+  <div class="cat-badge">AI Güvenliği</div>
+  <h1 class="cat-page-title">AI Model</h1>
+  <p class="cat-page-desc">LLM güvenlik açıkları, prompt injection saldırıları, model manipulation teknikleri ve AI sistemlerine yönelik tehdit analizleri. Yapay zeka ekosisteminin saldırı yüzeyi.</p>
+</div>
+
+<div class="cat-page-content">
+  <div class="search-wrap">
+    <span class="search-icon">⌕</span>
+    <input class="search-input" type="text" placeholder="LLM, prompt injection, model, araç ara..." oninput="filterPosts('aimodel',this.value)" id="search-aimodel">
+    <button class="search-clear" id="clear-aimodel" onclick="clearSearch('aimodel')">✕</button>
+  </div>
+  <div class="search-count" id="count-aimodel"></div>
+  <div class="no-results" id="no-aimodel">Arama sonucu bulunamadı.</div>
+
+  <div class="cat-posts rv" id="posts-aimodel">
+
+     <div class="cat-post-item" data-search="deepseek v4 açık kaynak dünyasının yeni sınırı benchmarkların ötesinde gerçek dünya senaryolarında üstün akıl yürütme">
+      <div class="cpi-meta"><span class="cpi-arrow">2026</span><span class="cpi-badge green">AI Model</span></div>
+      <div class="cpi-content">
+        <div class="cpi-title">DeepSeek V4 — Açık Kaynak Dünyasının Yeni Sınırı</div>
+        <div class="cpi-sub">Benchmarkların Ötesinde: Gerçek Dünya Senaryolarında Üstün Akıl yürütme</div>
+        <div class="intel-btns">
+          <a href="https://althacksec.medium.com/deepseek-v4-a%C3%A7%C4%B1k-kaynak-d%C3%BCnyas%C4%B1n%C4%B1n-yeni-s%C4%B1n%C4%B1r%C4%B1-7f2b4c36aab7" target="_blank" rel="noopener noreferrer" class="intel-btn medium">Medium Yazısı</a>
+        </div>
+      </div>
+      <span class="cpi-arrow">→</span>
+    </div>
+
+    <div class="cat-post-item" data-search="claude mythos preview siber güvenliğin sıfır noktası zafiyetleirn kökeni moder savunma">
+      <div class="cpi-meta"><span class="cpi-arrow">2026</span><span class="cpi-badge green">AI Model</span></div>
+      <div class="cpi-content">
+        <div class="cpi-title">Claude Mythos Preview — Siber Güvenliğin Sıfır Noktası</div>
+        <div class="cpi-sub">Zafiyetlerin Kökeni ve Modern Savunma Mimarileri</div>
+        <div class="intel-btns">
+          <a href="https://althacksec.medium.com/claude-mythos-preview-siber-g%C3%BCvenli%C4%9Fin-s%C4%B1f%C4%B1r-noktas%C4%B1-c12845fac064" target="_blank" rel="noopener noreferrer" class="intel-btn medium">Medium Yazısı</a>
+        </div>
+      </div>
+      <span class="cpi-arrow">→</span>
+    </div>
+
+  </div>
+</div>
+
+<footer>
+  <div class="fi">
+    <div class="fm">
+      <div>
+        <a href="index.html" class="flogo notranslate"><span class="alt">ALT</span>HACK <span class="sec">SECURITY</span></a>
+        <div class="ftag">Gerçek Dünya Siber Güvenlik İstihbaratı</div>
+        <p class="fdesc">Gerçek dünya siber güvenlik analizleri. MITRE ATT&CK entegrasyonu ile operasyonel istihbarat. Orta-üst seviye profesyoneller için.</p>
+        <div class="fsl">
+          <a href="https://linkedin.com/company/althack" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+          <a href="https://medium.com/@althacksec" target="_blank" rel="noopener noreferrer">Medium</a>
+          <a href="https://github.com/althacksec" target="_blank" rel="noopener noreferrer">GitHub</a>
+        </div>
+      </div>
+      <div class="fcols">
+        <div class="fc"><div class="fct">Kategoriler</div><ul><li><a href="cve.html">CVE Spotlight</a></li><li><a href="breach.html">Breach Breakdown</a></li><li><a href="products.html">Security Products</a></li><li><a href="cti.html">CTI</a></li><li><a href="cloud.html">Cloud Attack Surface</a></li><li><a href="aimodel.html">AI Model</a></li><li><a href="malware.html">Malware Analysis</a></li></ul></div>
+        <div class="fc"><div class="fct">Hakkında</div><ul><li><a href="about.html">AltHack Security Nedir?</a></li><li><a href="index.html#platforms">Platformlar</a></li></ul></div>
+        <div class="fc"><div class="fct">İletişim</div><ul><li><a href="mailto:althacksecurity@gmail.com">althacksecurity@gmail.com</a></li><li><a href="https://github.com/althacksec" target="_blank" rel="noopener noreferrer">GitHub Issues</a></li><li><a href="https://linkedin.com/company/althack" target="_blank" rel="noopener noreferrer">LinkedIn Mesaj</a></li></ul></div>
+      </div>
+    </div>
+    <div class="fb"><span class="fcopy">© 2025 <span class="notranslate">AltHack</span> Security — Tüm hakları saklıdır.</span><div class="flegal"><a href="mailto:althacksecurity@gmail.com">İletişim</a></div></div>
+  </div>
+</footer>
+
+<script type="text/javascript">
+  function googleTranslateElementInit() {
+    new google.translate.TranslateElement({pageLanguage: 'tr', includedLanguages: 'en,tr', autoDisplay: false}, 'google_translate_element');
+  }
+</script>
+<script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+<script src="script/script.js"></script>
+</body>
+</html>

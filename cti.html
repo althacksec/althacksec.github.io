@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CTI — AltHack Security</title>
+  <meta name="description" content="Tehdit aktörleri, kampanya analizleri, TTP'ler ve operasyonel siber tehdit istihbaratı.">
+  <link rel="icon" type="image/jpeg" href="https://raw.githubusercontent.com/althacksec/althacksec.github.io/main/profile.jpg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="glow" id="glowOrb"></div><div class="glow2"></div><div class="glow3"></div>
+
+<nav id="mainNav">
+  <a href="index.html" class="nav-logo notranslate"><span class="alt">ALT</span>HACK<span class="sec">&nbsp;SECURITY</span></a>
+  
+  <ul class="nav-links">
+    <li class="nd" id="dCat">
+      <button class="nd-btn" onclick="toggleDD('dCat')">Kategoriler <span class="chev"></span></button>
+      <div class="dm">
+        <a href="cve.html" class="di"><div class="di-tag">CVE Arşivi</div><div class="di-title">CVE Spotlight</div><div class="di-desc">Kritik güvenlik açıklarının haftalık teknik analizi</div></a>
+        <a href="breach.html" class="di"><div class="di-tag">Vaka Analizleri</div><div class="di-title">Breach Breakdown</div><div class="di-desc">Gerçek saldırı vakalarının anatomisi</div></a>
+        <a href="products.html" class="di"><div class="di-tag">Siber Güvenlik Ürünleri</div><div class="di-title">Security Products</div><div class="di-desc">Wazuh, SentinelOne ve diğer güvenlik ürünleri</div></a>
+        <a href="cti.html" class="di"><div class="di-tag">Cyber Threat Intelligence</div><div class="di-title">CTI</div><div class="di-desc">Tehdit aktörleri, kampanya analizleri ve operasyonel istihbarat</div></a>
+        <a href="cloud.html" class="di"><div class="di-tag">Cloud Security</div><div class="di-title">Cloud Attack Surface</div><div class="di-desc">AWS, Azure, GCP misconfiguration ve exploitation</div></a>
+        <a href="aimodel.html" class="di"><div class="di-tag">AI Güvenliği</div><div class="di-title">AI Model</div><div class="di-desc">LLM güvenlik açıkları, prompt injection ve AI tehdit analizleri</div></a>
+        <a href="malware.html" class="di"><div class="di-tag">Zararlı Yazılım Analizi</div><div class="di-title">Malware Analysis</div><div class="di-desc">Yeni ve mevcut malware'lerin teknik analizi ve çalışma prensipleri</div></a>
+      </div>
+    </li>
+    <li><a href="about.html">Hakkında</a></li>
+    <li><a href="index.html#latest">Son Yazılar</a></li>
+    <li><a href="index.html#platforms">Platformlar</a></li>
+  </ul>
+
+  <div class="nav-right" style="display: flex; gap: 12px; align-items: center;">
+    <div id="google_translate_element" style="display: none;"></div>
+    
+    <select id="langSelector" class="nav-cta notranslate" style="background: transparent; color: var(--cyan); border: 1px solid var(--bdim); cursor: pointer; appearance: none; text-align: center; padding-right: 18px;">
+      <option value="tr" style="color: #000;">TR</option>
+      <option value="en" style="color: #000;">EN</option>
+    </select>
+
+    <a href="https://linkedin.com/company/althack" target="_blank" rel="noopener noreferrer" class="nav-cta">LinkedIn →</a>
+  </div>
+</nav>
+
+<div class="cat-page-hero">
+  <a href="index.html" class="back-btn">Ana Sayfa</a>
+  <div class="cat-badge">Cyber Threat Intelligence</div>
+  <h1 class="cat-page-title">CTI</h1>
+  <p class="cat-page-desc">Tehdit aktörleri, APT grupları, kampanya analizleri ve operasyonel istihbarat. TTP'ler, IOC'ler ve attribution metodolojisi. Savunma kararlarını gerçek tehdit verisine dayandır.</p>
+</div>
+
+<div class="cat-page-content">
+  <div class="search-wrap">
+    <span class="search-icon">⌕</span>
+    <input class="search-input" type="text" placeholder="APT grubu, TTP, IOC, kampanya, tehdit aktörü ara..." oninput="filterPosts('cti',this.value)" id="search-cti">
+    <button class="search-clear" id="clear-cti" onclick="clearSearch('cti')">✕</button>
+  </div>
+  <div class="search-count" id="count-cti"></div>
+  <div class="no-results" id="no-cti">Arama sonucu bulunamadı.</div>
+
+  <div class="cat-posts rv" id="posts-cti">
+
+    <div class="cat-post-item" data-search="mcp sunucuları ile ai destekli cti fırsatlar yeni saldırı yüzeyi 2026 en önemli cti operasyon  gelişmelerinden biri teknik bir araç bir paradigma değişikliğinden geliyor">
+      <div class="cpi-meta"><span class="cpi-arrow">2026</span><span class="cpi-badge blue">CTI</span></div>
+      <div class="cpi-content">
+        <div class="cpi-title">MCP Sunucuları ile AI Destekli CTI — Fırsatlar ve Yeni Saldırı Yüzeyi</div>
+        <div class="cpi-sub">2026’nın en önemli CTI operasyon gelişmelerinden biri teknik bir araçtan değil, bir paradigma değişikliğinden geliyor</div>
+        <div class="intel-btns">
+          <a href="https://github.com/althacksec/CTI/blob/main/MCP%20Sunucular%C4%B1%20ile%20AI%20Destekli%20CTI.md" target="_blank" rel="noopener noreferrer" class="intel-btn github">GitHub Analizi</a>
+        </div>
+      </div>
+      <span class="cpi-arrow">→</span>
+    </div>
+
+    <div class="cat-post-item" data-search="misp v2.5.35 workbench v1.0 tehdit paylaşım ekosistemi yeniden şekilleniyor dünya genelinde 10.000'den fazla kurumun aktif olarak kullandığı fiili standardı haline gelmiş açıık kaynak platform">
+      <div class="cpi-meta"><span class="cpi-arrow">2026</span><span class="cpi-badge blue">CTI</span></div>
+      <div class="cpi-content">
+        <div class="cpi-title">MISP v2.5.35 + MISP Workbench v1.0 — Tehdit Paylaşım Ekosistemi Yeniden Şekilleniyor</div>
+        <div class="cpi-sub">MISP, dünya genelinde 10.000’den fazla kurumun aktif olarak kullandığı, tehdit istihbaratı paylaşımının fiili standardı haline gelmiş açık kaynak bir platformdur.</div>
+        <div class="intel-btns">
+          <a href="https://github.com/althacksec/CTI/blob/main/MISP%20v2.5.35%20%2B%20MISP%20Workbench%20v1.0.md" target="_blank" rel="noopener noreferrer" class="intel-btn github">GitHub Analizi</a>
+        </div>
+      </div>
+      <span class="cpi-arrow">→</span>
+    </div>
+
+    <div class="cat-post-item" data-search="opencti v7 filigran xtm suite yeni nesil altyap siber tehdiy istihbaratı alanındaki en güçlü izole siem uzanan operasyonelleştirme ">
+      <div class="cpi-meta"><span class="cpi-arrow">2026</span><span class="cpi-badge blue">CTI</span></div>
+      <div class="cpi-content">
+        <div class="cpi-title">OpenCTI v7 & Filigran XTM Suite — CTI'nin Yeni Nesil Altyapısı</div>
+        <div class="cpi-sub">OpenCTI, siber tehdit istihbaratı alanındaki en güçlü açık kaynak platformlarından biridir. Bu sürümle birlikte platform; izole bir istihbarat deposu olmaktan çıkıp, tarayıcıdan SIEM’e uzanan tam bir operasyonelleştirme zinciri kurmaya başladı.</div>
+        <div class="intel-btns">
+          <a href="https://github.com/althacksec/CTI/blob/main/OpenCTI%20v7%20%26%20Filigran%20XTM%20Suite.md" target="_blank" rel="noopener noreferrer" class="intel-btn github">GitHub Analizi</a>
+        </div>
+      </div>
+      <span class="cpi-arrow">→</span>
+    </div>
+
+  </div>
+</div>
+
+<footer>
+  <div class="fi">
+    <div class="fm">
+      <div>
+        <a href="index.html" class="flogo notranslate"><span class="alt">ALT</span>HACK <span class="sec">SECURITY</span></a>
+        <div class="ftag">Gerçek Dünya Siber Güvenlik İstihbaratı</div>
+        <p class="fdesc">Gerçek dünya siber güvenlik analizleri. MITRE ATT&CK entegrasyonu ile operasyonel istihbarat. Orta-üst seviye profesyoneller için.</p>
+        <div class="fsl">
+          <a href="https://linkedin.com/company/althack" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+          <a href="https://medium.com/@althacksec" target="_blank" rel="noopener noreferrer">Medium</a>
+          <a href="https://github.com/althacksec" target="_blank" rel="noopener noreferrer">GitHub</a>
+        </div>
+      </div>
+      <div class="fcols">
+        <div class="fc"><div class="fct">Kategoriler</div><ul><li><a href="cve.html">CVE Spotlight</a></li><li><a href="breach.html">Breach Breakdown</a></li><li><a href="products.html">Security Products</a></li><li><a href="cti.html">CTI</a></li><li><a href="cloud.html">Cloud Attack Surface</a></li><li><a href="aimodel.html">AI Model</a></li><li><a href="malware.html">Malware Analysis</a></li></ul></div>
+        <div class="fc"><div class="fct">Hakkında</div><ul><li><a href="about.html">AltHack Security Nedir?</a></li><li><a href="index.html#platforms">Platformlar</a></li></ul></div>
+        <div class="fc"><div class="fct">İletişim</div><ul><li><a href="mailto:althacksecurity@gmail.com">althacksecurity@gmail.com</a></li><li><a href="https://github.com/althacksec" target="_blank" rel="noopener noreferrer">GitHub Issues</a></li><li><a href="https://linkedin.com/company/althack" target="_blank" rel="noopener noreferrer">LinkedIn Mesaj</a></li></ul></div>
+      </div>
+    </div>
+    <div class="fb"><span class="fcopy">© 2025 <span class="notranslate">AltHack</span> Security — Tüm hakları saklıdır.</span><div class="flegal"><a href="mailto:althacksecurity@gmail.com">İletişim</a></div></div>
+  </div>
+</footer>
+
+<script type="text/javascript">
+  function googleTranslateElementInit() {
+    new google.translate.TranslateElement({pageLanguage: 'tr', includedLanguages: 'en,tr', autoDisplay: false}, 'google_translate_element');
+  }
+</script>
+<script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+<script src="script/script.js"></script>
+</body>
+</html>
